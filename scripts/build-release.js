@@ -37,7 +37,7 @@ function run(command, args) {
   const result = spawnSync(command, args, {
     cwd: ROOT,
     stdio: 'inherit',
-    shell: false,
+    shell: process.platform === 'win32',
     windowsHide: false
   });
 

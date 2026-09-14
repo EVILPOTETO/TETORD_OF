@@ -162,14 +162,16 @@ async function main() {
   run(
     npmCommand(),
     [
-      'exec',
-      '--',
-      'electron-builder',
-      '--win',
-      'nsis',
-      'portable',
-      '--x64'
-    ]
+  'exec',
+  '--',
+  'electron-builder',
+  '--win',
+  'nsis',
+  'portable',
+  '--x64',
+  '--publish',
+  'never'
+]
   );
 
   console.log('✓ electron-builder terminó correctamente.');

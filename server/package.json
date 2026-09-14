@@ -1,0 +1,16 @@
+{
+  "name": "tetord-messenger-server",
+  "version": "4.2.0",
+  "private": true,
+  "description": "TETORD Messenger + Auth + Cloud Sync backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}

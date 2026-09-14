@@ -1,0 +1,3 @@
+windows-latest
+npm install
+npm run build:release

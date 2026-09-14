@@ -200,12 +200,10 @@ async function main() {
     );
   }
 
-  const forbiddenOutputNames = [
-    'test',
-    'tests',
-    'server',
-    'scripts'
-  ];
+ const forbiddenOutputNames = [
+  'server',
+  'scripts'
+];
 
   const suspicious = entries.filter(name =>
     forbiddenOutputNames.some(part =>

@@ -1,0 +1,57 @@
+{
+  "name": "tetord-desktop",
+  "version": "4.3.4",
+  "description": "TETORD — Teto + Word, desktop edition",
+  "main": "electron/main.js",
+  "author": "TETORD",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64",
+    "dist": "electron-builder --win",
+    "sync-version": "node scripts/sync-version.js",
+    "test:static": "node scripts/test-static.js",
+    "start:server": "npm --prefix server start",
+    "install:server": "npm --prefix server install",
+    "preflight": "npm run sync-version && npm run test:static && node server/tests/concurrency-test.js",
+    "build:release": "node scripts/build-release.js"
+  },
+  "build": {
+    "appId": "com.tetord.desktop",
+    "productName": "TETORD",
+    "artifactName": "TETORD-Setup-${version}-${arch}.${ext}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "MiWord/**/*",
+      "electron/**/*",
+      "VERSION",
+      "README.md",
+      "CHANGELOG.md",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "TETORD",
+      "artifactName": "TETORD-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "TETORD-${version}-${arch}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0"
+  }
+}

@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -25,10 +26,32 @@ jobs:
       - name: Build TETORD
         run: npm run build:release
 
+      - name: Verify Windows build artifacts
+        shell: pwsh
+        run: |
+          Write-Host "Contenido de dist:"
+          Get-ChildItem -Path dist -Recurse | Select-Object FullName, Length
+
+          $exeFiles = Get-ChildItem -Path dist -Filter "*.exe" -File
+
+          if ($exeFiles.Count -eq 0) {
+            Write-Error "No se encontró ningún archivo .exe en dist/"
+            exit 1
+          }
+
+          Write-Host ""
+          Write-Host "EXE encontrados:"
+          $exeFiles | ForEach-Object {
+            Write-Host $_.FullName
+          }
+
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: TETORD-4.2.0-Windows
+          name: TETORD-Windows
           path: |
-            dist/TETORD-Setup-4.2.0-x64.exe
-            dist/TETORD-4.2.0-x64.exe
+            dist/*.exe
+            dist/latest.yml
+            dist/*.blockmap
+            dist/RELEASE_MANIFEST.json
+          if-no-files-found: error
